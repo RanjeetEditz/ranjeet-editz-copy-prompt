@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Copy Prompt</title>
+<style>
+body{margin:0;background:transparent;font-family:Arial,sans-serif;text-align:center}
+button{padding:14px 28px;border:0;border-radius:10px;background:#111;color:#fff;font-size:16px;font-weight:bold;cursor:pointer}
+#msg{margin-top:10px;font-size:14px}
+textarea{position:fixed;left:-10000px;top:-10000px}
+</style>
+</head>
+<body>
+<button id="copy">📋 Copy Prompt</button>
+<div id="msg"></div>
+<textarea id="p"></textarea>
+<script>
+const prompt = "Create a highly realistic cinematic studio portrait using my uploaded image as the identity and face reference for the main adult woman. Preserve her facial identity, facial features, hairstyle, and natural appearance accurately.\n\nThe scene features a stylish adult woman standing confidently against a dark black studio background, wearing a black button-up shirt with rolled-up sleeves, light blue loose-fit jeans, white sneakers, black sunglasses, and a classic wristwatch. She is smiling naturally with her arms crossed, standing in a relaxed fashion pose with one leg slightly crossed in front of the other.\n\nBeside her is a cute miniature doll-sized version of the same woman, wearing a matching black shirt, light blue jeans, white sneakers, and black sunglasses. The miniature character has matching blonde hair and carries a small black flashlight, pointing its warm golden beam upward toward the adult woman.\n\nDramatic cinematic studio lighting, warm golden spotlight from the flashlight, subtle rim lighting around the hair, dark black background, glossy reflective floor, realistic shadows and reflections, premium fashion photography, photorealistic skin texture, natural proportions, detailed clothing fabric, realistic lighting, sharp focus, high-end commercial photography, cinematic composition, ultra-detailed, 8K quality.\n\nImportant: Keep the adult woman's identity consistent with the uploaded reference image. Do not alter her facial structure or recognizable features. Keep both characters clearly visible and maintain the same overall composition and pose.";
+document.getElementById('p').value=prompt;
+document.getElementById('copy').onclick=async()=>{
+  try{
+    await navigator.clipboard.writeText(prompt);
+  }catch(e){
+    const t=document.getElementById('p');
+    t.style.position='fixed';t.style.left='0';t.style.top='0';
+    t.focus();t.select();document.execCommand('copy');
+    t.style.left='-10000px';
+  }
+  document.getElementById('msg').textContent='✅ Prompt Copied!';
+  setTimeout(()=>document.getElementById('msg').textContent='',2500);
+};
+</script>
+</body>
+</html>
